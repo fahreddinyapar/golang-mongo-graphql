@@ -1,0 +1,37 @@
+type Article {
+  _id: String!
+  name: String!
+  definition: String!
+  directory: String!
+}
+
+input NewArticle {
+  name: String!
+  definition: String!
+  directory: String!
+}
+
+
+type Tag {
+  _id: String!
+  name: String!
+  category: String
+  dispathWeight: Int
+}
+
+input NewTag {
+  name: String!
+  category: String
+}
+
+type Query {
+  article(_id: String!): Article!
+  articles: [Article!]!
+  tag(_id: String!): Tag!
+  tags: [Tag!]!
+}
+
+type Mutation {
+  createArticle(input: NewArticle): Article!
+  createTag(input: NewTag): Tag!
+}
