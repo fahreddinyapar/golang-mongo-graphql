@@ -3,7 +3,7 @@
 package model
 
 type Article struct {
-	ID         string `json:"_id" bson:"_id"`
+	ID         string `json:"id" bson:"_id"`
 	Name       string `json:"name" bson:"name"`
 	Definition string `json:"definition" bson:"definition"`
 	Directory  string `json:"directory" bson:"directory"`
@@ -21,7 +21,7 @@ type NewTag struct {
 }
 
 type Tag struct {
-	ID            string  `json:"_id" bson:"_id"`
+	ID            string  `json:"id" bson:"_id"`
 	Name          string  `json:"name" bson:"name"`
 	Category      *string `json:"category" bson:"category"`
 	DispathWeight *int    `json:"dispathWeight" bson:"dispathWeight"`

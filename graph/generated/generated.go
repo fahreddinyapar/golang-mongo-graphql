@@ -110,7 +110,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Article.Directory(childComplexity), true
 
-	case "Article._id":
+	case "Article.id":
 		if e.complexity.Article.ID == nil {
 			break
 		}
@@ -158,7 +158,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Query.Article(childComplexity, args["_id"].(string)), true
+		return e.complexity.Query.Article(childComplexity, args["id"].(string)), true
 
 	case "Query.articles":
 		if e.complexity.Query.Articles == nil {
@@ -177,7 +177,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Query.Tag(childComplexity, args["_id"].(string)), true
+		return e.complexity.Query.Tag(childComplexity, args["id"].(string)), true
 
 	case "Query.tags":
 		if e.complexity.Query.Tags == nil {
@@ -200,7 +200,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Tag.DispathWeight(childComplexity), true
 
-	case "Tag._id":
+	case "Tag.id":
 		if e.complexity.Tag.ID == nil {
 			break
 		}
@@ -279,7 +279,7 @@ func (ec *executionContext) introspectType(name string) (*introspection.Type, er
 
 var sources = []*ast.Source{
 	&ast.Source{Name: "graph/schema.graphqls", Input: `type Article {
-  _id: String!
+  id: String!
   name: String!
   definition: String!
   directory: String!
@@ -293,7 +293,7 @@ input NewArticle {
 
 
 type Tag {
-  _id: String!
+  id: String!
   name: String!
   category: String
   dispathWeight: Int
@@ -305,9 +305,9 @@ input NewTag {
 }
 
 type Query {
-  article(_id: String!): Article!
+  article(id: String!): Article!
   articles: [Article!]!
-  tag(_id: String!): Tag!
+  tag(id: String!): Tag!
   tags: [Tag!]!
 }
 
@@ -369,13 +369,13 @@ func (ec *executionContext) field_Query_article_args(ctx context.Context, rawArg
 	var err error
 	args := map[string]interface{}{}
 	var arg0 string
-	if tmp, ok := rawArgs["_id"]; ok {
+	if tmp, ok := rawArgs["id"]; ok {
 		arg0, err = ec.unmarshalNString2string(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
 	}
-	args["_id"] = arg0
+	args["id"] = arg0
 	return args, nil
 }
 
@@ -383,13 +383,13 @@ func (ec *executionContext) field_Query_tag_args(ctx context.Context, rawArgs ma
 	var err error
 	args := map[string]interface{}{}
 	var arg0 string
-	if tmp, ok := rawArgs["_id"]; ok {
+	if tmp, ok := rawArgs["id"]; ok {
 		arg0, err = ec.unmarshalNString2string(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
 	}
-	args["_id"] = arg0
+	args["id"] = arg0
 	return args, nil
 }
 
@@ -429,7 +429,7 @@ func (ec *executionContext) field___Type_fields_args(ctx context.Context, rawArg
 
 // region    **************************** field.gotpl *****************************
 
-func (ec *executionContext) _Article__id(ctx context.Context, field graphql.CollectedField, obj *model.Article) (ret graphql.Marshaler) {
+func (ec *executionContext) _Article_id(ctx context.Context, field graphql.CollectedField, obj *model.Article) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -671,7 +671,7 @@ func (ec *executionContext) _Query_article(ctx context.Context, field graphql.Co
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().Article(rctx, args["_id"].(string))
+		return ec.resolvers.Query().Article(rctx, args["id"].(string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -746,7 +746,7 @@ func (ec *executionContext) _Query_tag(ctx context.Context, field graphql.Collec
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().Tag(rctx, args["_id"].(string))
+		return ec.resolvers.Query().Tag(rctx, args["id"].(string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -866,7 +866,7 @@ func (ec *executionContext) _Query___schema(ctx context.Context, field graphql.C
 	return ec.marshalO__Schema2ᚖgithubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚋintrospectionᚐSchema(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Tag__id(ctx context.Context, field graphql.CollectedField, obj *model.Tag) (ret graphql.Marshaler) {
+func (ec *executionContext) _Tag_id(ctx context.Context, field graphql.CollectedField, obj *model.Tag) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2124,8 +2124,8 @@ func (ec *executionContext) _Article(ctx context.Context, sel ast.SelectionSet, 
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Article")
-		case "_id":
-			out.Values[i] = ec._Article__id(ctx, field, obj)
+		case "id":
+			out.Values[i] = ec._Article_id(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
@@ -2288,8 +2288,8 @@ func (ec *executionContext) _Tag(ctx context.Context, sel ast.SelectionSet, obj 
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Tag")
-		case "_id":
-			out.Values[i] = ec._Tag__id(ctx, field, obj)
+		case "id":
+			out.Values[i] = ec._Tag_id(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
